@@ -1,0 +1,52 @@
+Write PHP script to read above created “book.xml” file into simpleXML
+object. Display attributes and elements
+(Hint:simple_xml_load_file() function ) 
+
+<?php
+          $xml=simplexml_load_file("setb1.xml");
+          echo"<table border=2>";
+          echo"<tr><th>bookname</th><th>bookno</th><th>category</th><th>aname</th><th>price</th><th>year</th></tr>";
+          foreach( $xml->book as $a)
+          { 
+                    echo"<tr><td>".$a->bookname."</td>";
+                    echo"<td>".$a['bookno']."</td>";
+                    echo"<td>".$a['category']."</td>";      
+                    echo"<td>".$a->aname."</td>";
+                    echo"<td>".$a->price."</td>";
+                    echo"<td>".$a->year."</td></tr>";  
+           }
+           echo"</table>";
+?>
+
+
+
+
+<?xml version="1.0"?>
+   <bookinfo>
+          <book bookno="101" category="theory">
+                    
+                   <bookname>JAVA</bookname>
+                    <aname>Shubham Pahu</aname>
+                    <price>350</price>
+                    <year>2022</year>
+            </book>
+                <book bookno="102" category="practicle">
+                    <bookname>PHP</bookname>
+                    <aname>Haghat Singh</aname>
+                    <price>450</price>
+                    <year>2012</year>
+            </book>
+                <book bookno="103" category="practicle">
+                    <bookname>PYTH0N</bookname>
+                    <aname>Aditya Mote</aname>
+                    <price>3500</price>
+                    <year>2023</year>
+            </book>
+                <book bookno="104" category="theory">
+                    <bookname>SWIFT</bookname>
+                    <aname>Rahul Jadhav</aname>
+                    <price>250</price>
+                    <year>2019</year>
+            </book>
+   </bookinfo>
+

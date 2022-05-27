@@ -1,0 +1,159 @@
+Write a PHP script to create a form to accept customer information (name, address, ph-no). Once the customer information is accepted, accept product information in the next form (Product name, qty, rate). Display the bill for the customer in the next form. Bill should contain the customer information and the information of the products entered.
+
+ first.php
+
+<html>
+
+<body>
+
+<form method ="post" action="second.php">
+
+<table border="1">
+
+ <tr>
+
+<td>customer Name:-</td>
+
+<td><input type="text" name="name"></td>
+
+</tr>
+
+ <tr>
+
+<td>customer Phone Number:-</td>
+
+<td><input type="text" name="ph-no"></td>
+
+</tr>
+
+<tr>
+
+<td>customer address:-</td>
+
+<td><input type="text" name="address"></td>
+
+</tr>
+
+ <tr>
+
+<td></td>
+
+<td><input type="submit" value="save"></td>
+
+</tr>
+
+</table>
+
+ </form>
+
+</body>
+
+</html>
+
+ second.php
+
+<html>
+
+<body>
+
+ <?php
+
+setCookie('name',$_POST["name"]);
+
+setCookie('ph-no',$_POST["ph-no"]);
+
+setCookie('address',$_POST["address"]);
+
+echo"Hello".$_POST["name"]."!Enter Details....<br>";
+
+?>
+
+<form method ="post" action="third.php">
+
+<table border="1">
+
+<tr><td>Product name</td><td><input type="text" name="pname"></td></tr>
+
+<tr><td>qty</td><td><input type="text" name="qty"></td></tr>
+
+<tr><td>rate</td><td><input type="text" name="rate"></td></tr>
+
+<tr><td></td><td><input type="submit" name="submit" value="DISPLAY"></td></tr>
+
+</table>
+
+</form>
+
+</body>
+
+</html>
+
+ third.php
+
+<html>
+
+<body>
+
+<?php
+
+ echo "<b> customer Details</b><br>";
+
+echo "<table border='1'>";
+
+echo "<tr><td>";
+
+echo"customerName:".$_COOKIE["name"]."<br>";
+
+echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo"customer phone:-".$_COOKIE["ph-no"]."<br>";
+
+echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo"Studcustomerent address:-".$_COOKIE["address"]."<br>";
+
+echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo "<b> customer Bill</b><br>";
+
+echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo"pname:".$_REQUEST["pname"];echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo"qty:".$_REQUEST["qty"];echo "</tr></td>";
+
+echo "<tr><td>";
+
+echo"rate:".$_REQUEST["rate"];echo "</tr></td>";
+
+echo "</table>";
+
+if(isset($_POST['submit']))
+
+{
+
+ $qty=(int)$_POST['qty'];
+
+$rate=(int)$_POST['rate'];
+
+ $total = $qty*$rate;
+
+ echo"Total=".$total;
+
+}
+
+?>
+
+</body>
+
+</html>

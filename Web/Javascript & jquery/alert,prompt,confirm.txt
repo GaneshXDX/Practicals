@@ -1,0 +1,36 @@
+Write a javascript to display message ‘Exams are near, have you started
+preparing for?’ using alert, prompt and confirm boxes. Accept proper input
+from user and display messages accordingly
+
+<html>
+<body>
+<script>
+          function alert1(){
+                    alert("exam are near, have you started preparing for");
+          }
+          function confirm1(){
+                    var a=confirm("exam are near, have you started preparing for");
+                    if (a == true){
+                              alert(" you pressed Ok");
+                     }
+                     else{
+                               alert(" you pressed Cancle");
+                     }
+          }
+          function prompt1(){
+            var a=prompt("exam are near, have you started preparing for");
+                    if (a == null){
+                              alert(" Null");
+                     }
+                     else{
+                               alert(a);
+                     }
+          }
+</script>
+          <form post=type>
+                    <input type="submit" value="alert" onclick="alert1()">
+                    <input type="submit" value="confirm" onclick="confirm1()">
+                    <input type="submit" value="prompt" onclick="prompt1()">
+          </form>
+ </body>
+ </html>

@@ -1,0 +1,53 @@
+Add or append in paragraph text and also in the numbered ordered list in a given HTML document using jQuery selectors.
+[Hint:Use before() and after()]
+
+
+
+HTML & JAVA Script File:
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script>
+		
+	
+		var person = prompt("Please enter list element", "List Item ");
+		var person1 = prompt("Please enter data for paragraph", "List Item ");
+  				
+		
+		$(document).ready(function()
+		{
+      			$("#button1").click(function()
+			{
+	         		$("p").append("<b>" + person1+"</b>");
+	       		});
+
+ 	     		$("#button2").click(function()
+			{
+        	 		$("ol").append("<li>"+person+"</li>");
+       			});
+ 		 });
+		</script>	
+	</head>
+	<body>
+  		<p>Paragraph </P>
+  		<ol>
+			<h3>List is as follows: </h3>
+    				<li>Sugar</li>
+    				<li>Salt</li>
+  		</ol>
+
+		<button id = "button1">Append in paragraph</button>
+		<button id = "button2">Append in list </button>
+	</body>
+</html>
+
+
+
+<input type="button" onclick="show_confirm()" value="Show confirm">
+		
+<input type="button" onclick="show_alert()" value="Show alert">
+
+	
+</body>
+</html>
+

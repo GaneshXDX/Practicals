@@ -1,0 +1,203 @@
+Write Ajaxprogram to get book details from XML file when user select a book name. CreateXML file for storing details of book(title, author, year, price).
+
+  
+
+book.html
+
+ 
+
+<html>
+
+<head>
+
+<script>
+
+function showHint(str)
+
+{
+
+if (str=="")
+
+{
+
+document.getElementById("mydiv").innerHTML = "";
+
+return;
+
+}
+
+if(window.XMLHttpRequest)
+
+{
+
+XHRobj=new XMLHttpRequest();
+
+}
+
+else
+
+{
+
+XHRobj=new ActiveXObject("Microsoft.XMLHTTP");
+
+}
+
+XHRobj.onreadystatechange = function()
+
+{
+
+if (XHRobj.readyState == 4 && XHRobj.status == 200)
+
+{
+
+document.getElementById("mydiv").innerHTML = XHRobj.responseText;
+
+}
+
+}
+
+XHRobj.open("GET", "book.php?q=" + str, true);
+
+XHRobj.send();
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<p><b>Book Name:</b></p>
+
+<form>
+
+<SELECT name="bname" onchange="showHint(this.value)">
+
+<option value="">Select book</option>
+
+<option value="MOE">MOE</option>
+
+<option value="Java">Java</option>
+
+</select>
+
+</form>
+
+<div id="mydiv"><b> Book info......</b></div>
+
+</body>
+
+</html>
+
+ 
+
+ 
+
+book.php
+
+ 
+
+<?php
+
+ 
+
+$q=$_GET["q"];
+
+$dom=new DOMDocument();
+
+$dom->load("Book.xml");
+
+$x=$dom->getElementsByTagName('bname');
+
+for($i=0;$i<=$x->length-1;$i++)
+
+{
+
+if($x->item($i)->nodeType==1)
+
+{
+
+if($x->item($i)->childNodes->item(0)->nodeValue==$q)
+
+{
+
+$y=($x->item($i)->parentNode);
+
+}
+
+}
+
+}
+
+$book=($y->childNodes);
+
+for($i=0;$i<$book->length;$i++)
+
+{
+
+if($book->item($i)->nodeType==1)
+
+{
+
+echo("<b>".$book->item($i)->nodeName.":</b>");
+
+echo($book->item($i)->childNodes->item(0)->nodeValue);
+
+echo("<br/");
+
+}
+
+}
+
+?>
+
+ 
+
+book.xml
+
+ 
+
+<?xml version="1.0" ?>
+
+<?xml-stylesheet type="text/css" href="book.css"?>
+
+ 
+
+ 
+
+<bookinfo>
+
+ 
+
+<book code="B1">
+
+<bname>MOE</bname>
+
+<authorname>p.k.sinha</authorname>
+
+<year>2001</year>
+
+<price>100</price>
+
+</book>
+
+ 
+
+<book code="B2">
+
+<bname>Java</bname>
+
+<authorname>Alok pawar</authorname>
+
+<year>2001</year>
+
+<price>100</price>
+
+</book>
+
+ 
+
+</bookinfo>
+
+ 

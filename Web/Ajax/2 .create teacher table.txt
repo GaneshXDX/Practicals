@@ -1,0 +1,71 @@
+Create TEACHER table as follows TEACHER (tno, tname, qualification, salary).
+ Write Ajax program to select a teachers name and print the selected teachers details
+
+ <?php
+
+
+$tname=$_GET['tname'];
+
+$con_string="host=localhost port=5432  dbname=tybcs user=postgres  password=1234";
+
+$con=pg_connect($con_string);
+
+$q="select * from Teacher where tname='$tname'";
+
+$rs=pg_query($con,$q);
+
+echo"<table border=1>";
+
+echo"<tr><th>tno</th><th>tname</th><th>qualification</th><th>salary</th></tr>";
+
+while($row =pg_fetch_array($rs))
+
+{
+
+          echo"<tr>";
+
+          echo"<td>".$row['0']."</td>";
+
+          echo"<td>".$row['1']."</td>";
+
+          echo"<td>".$row['2']."</td>";
+
+          echo"<td>".$row['3']."</td>";
+
+          echo"</tr>";
+
+}
+
+echo"</table>";
+
+?>
+
+<html>
+          <head>
+          <script type="text/javascript">
+                    function display(tname)
+                    {
+                           var ob=false;
+                              ob=new XMLHttpRequest();
+                              ob.open("GET","setb1.php?tname="+tname,true);
+                               ob.send();
+                              ob.onreadystatechange=function ()
+                              {
+                                        if(ob.readyState==4  &&  ob.status==200)
+                            document.getElementById('res').innerHTML=ob.responseText;
+                              }
+                    }
+            </script>
+       </head> 
+<body>
+         Select Name of Teacher:
+         <select name="tname" onchange="display(this.value)">
+         <option value="  ">select teacher</option>
+          <option value="Rahul">Rahul</option>
+           <option value="Shubham">Shubham</option>
+            <option value="Mukesh">Mukesh</option>
+             <option value="Samay">Samay</option>
+              </select>
+          <div id="res"></div>
+ </body>
+ </html> 

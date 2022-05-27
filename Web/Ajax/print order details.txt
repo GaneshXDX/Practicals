@@ -1,0 +1,75 @@
+Write Ajax program to print Order details by selecting a Customer’s name. Create
+
+ table Customer and Order as follows with 1 : M cardinality CUSTOMER (cno, cname,
+
+ city) and ORDER(ono, odate, shipping address) 
+
+
+
+ <?php
+
+
+$tname=$_GET['aname'];
+
+$con_string="host=localhost port=5432  dbname=tybcs user=postgres  password=1234";
+
+$con=pg_connect($con_string);
+
+$q="select mno,mname,yaer from movies,actor where aname=$aname and movie.mno=actor.mno";";
+
+$rs=pg_query($con,$q);
+
+echo"<table border=1>";
+
+echo"<tr><th>mno</th><th>mname</th><th>year</th></tr>";
+
+while($row =pg_fetch_array($rs))
+
+{
+
+         echo"<tr>";
+
+         echo"<td>".$row['0']."</td>";
+
+         echo"<td>".$row['1']."</td>";
+
+         echo"<td>".$row['2']."</td>";
+
+         echo"</tr>";
+
+}
+
+echo"</table>";
+
+?>
+
+<html>
+         <head>
+         <script type="text/javascript">
+                   function display(tname)
+                   {
+                          var ob=false;
+                             ob=new XMLHttpRequest();
+                             ob.open("GET","setb1.php?tname="+tname,true);
+                              ob.send();
+                             ob.onreadystatechange=function ()
+                             {
+                                       if(ob.readyState==4  &&  ob.status==200)
+                           document.getElementById('res').innerHTML=ob.responseText;
+                             }
+                   }
+           </script>
+      </head> 
+<body>
+        Select Name of actor:
+        <select name="tname" onchange="display(this.value)">
+        <option value="  ">select actor name</option>
+         <option value="Rahul">Rahul</option>
+          <option value="Shubham">Shubham</option>
+           <option value="Mukesh">Mukesh</option>
+            <option value="Samay">Samay</option>
+             </select>
+         <div id="res"></div>
+</body>
+</html>
+

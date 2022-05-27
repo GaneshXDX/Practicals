@@ -1,0 +1,1016 @@
+			Web Technology Practical Exam question Bank
+Q1. [5 Marks]
+__________________________________________________________________________________________________________________________________________________________________________________
+i. Design HTML form, accept student Name, Age, and Mobile No. from user. Using
+java Script validate for following a) Student Name should not be empty. b) Student
+Age must be between 1 to 20.
+----->>. 
+		<html>
+<head>
+<style>
+span
+{
+                color: red;
+                font-size: 15px;
+                float: right;
+}
+</style>
+<script type="text/javascript" >
+                function val_stud_name(inputfield,helptext)
+                 {
+                                if(inputfield.value.length == 0)
+                                {
+                                                if(helptext != null)
+                                                {
+                                                                helptext.innerHTML= "* Student name should not be empty";
+                                                }
+                                                return false;   
+                                }
+                                else
+                                {
+                                                if (helptext != null)
+                                                helptext.innerHTML = "";
+                                                return true;
+                                }         
+                }         
+
+                function val_stud_age(inputfield,helptext)
+                 {
+                                if(1 >= inputfield.value || inputfield.value >= 20)
+                                {
+                                                if(helptext != null)
+                                                {
+                                                                helptext.innerHTML= "* Age must be between 1 to 20";
+                                                }
+                                                return false;   
+                                }
+                                else if(1 <= inputfield.value || inputfield.value <= 20)
+                                {
+                                                if (helptext != null)
+                                                helptext.innerHTML = "";
+                                                return true;
+                                }         
+                }         
+
+</script>
+</head>
+<body>
+<table align="center">
+<tr>
+<td><label>Name</label></td>
+<td><input type="text" placeholder="Enter your name here" name="s_name" id="s_name" onblur="val_stud_name(this,document.getElementById('s_nm'));"></td>
+</tr>
+<tr><td></td><td><span id="s_nm"></span></td></tr>                 
+
+<tr>
+<td><label>Age</label></td>
+<td><input type="text" placeholder="Enter your age here" name="age" id="age" onblur="val_stud_age(this,document.getElementById('s_age'));"></td>
+</tr>
+<tr><td></td><td><span id="s_age"></span></td></tr>                 
+
+<tr>
+<td><label>Mobile no </label></td>
+<td><input type="text" placeholder="Enter your mob here" name="s_mob" id="s_mob" onblur="val_nonEmpty(this,document.getElementById('s_mob'));"></td>
+</tr>
+<tr><td></td><td><span id="s_mob"></span></td></tr>               
+                           
+<tr><th colspan="2"><input type="submit" value="Submit"><input type="RESET" value="Reset"></th></tr>
+</table>
+</body>
+</html>
+
+
+
+
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-
+
+
+2.Write a java Script that Accept a string from user. Pass this string as parameter
+to a function name ‘check_vowel’ on button click event and return the count of
+the number vowels within the string.
+------>>
+HTML file :
+
+<html>
+<head>
+<style>
+span
+{
+                color : red;
+                font-size : 25px;
+}
+</style>
+
+<script type = "text/javascript" >
+                function check_vowels(str)
+                {
+                                var ob = false;
+                                ob = new XMLHttpRequest();
+                                ob.open("GET","slip4_Q1.php?string="+str);
+                                ob.send();
+                                ob.onreadystatechange=function()
+                                {
+                                                if(ob.readyState==4 && ob.status==200)
+
+                                                {  
+                                                   document.getElementById("i").innerHTML=ob.responseText; 
+                                                }
+                                }             
+                }             
+</script>
+</head>
+
+<body>
+<center>
+<h3>Enter Sting: <input type="text" name="str" id="str" maxlength="20"></h3>
+<input type="submit" value="Check Vowels" onclick="check_vowels(str.value)">
+<br><br><span id="i"></span>
+</center>
+</body>
+</html>
+
+PHP file :
+
+<?php
+                $a=$_GET['string'];
+                $l=strlen($a);
+                $v_cnt=0;
+                for($i=0;$i<$l;$i++)
+                {
+                                if(( $a[$i] == 'a') || ($a[$i] == 'e') || ($a[$i] == 'i') || ($a[$i] == 'o') || ($a[$i] == 'u') || ($a[$i] == 'A') || ($a[$i] == 'E') || ($a[$i] == 'I') || ($a[$i] == 'O') || ($a[$i] == 'U'))                             
+                                $v_cnt++;
+                }             
+                echo "Total vowels are : $v_cnt";
+?>
+
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+3. Write a java script function to Accept First Name and Last Name from user.
+Display users entered information. [ Hint: use alert and prompt dialogbox]
+------>>>
+
+HTML file :
+
+<html>
+<script type="text/javascript">
+                function display()
+                {
+                                var ob=false;
+                                ob=new XMLHttpRequest();
+                                var fnm=document.getElementById("fnm").value;
+                                var lnm=document.getElementById("lnm").value;
+               
+                                ob.open("GET","slip1.php?fnm="+fnm+"&lnm="+lnm);              
+                                ob.send();          
+               
+                                ob.onreadystatechange=function()
+                                {             
+if(ob.readyState==4 && ob.status==200)
+                                                {             
+                                                                if(ob.responseText==2)
+                                                                document.getElementById("i").innerHTML="Fill The Text Boxes";
+                                                                                else
+                                                                                {
+                                                                                                alert(ob.responseText);
+                                                                                                document.getElementById("i").innerHTML=ob.responseText;
+                                                                                }
+                                                }
+                                }             
+                }
+</script>
+
+<body>
+Enter First name<input type=text name=fnm id=fnm><br>
+Enter last name<input type=text name=lnm id=lnm><br>
+<input type=submit value=SUBMIT onclick=display()><br>
+<span id=i></span>
+</body>
+</html>
+
+PHP file :
+
+<?php
+$fnm = $_GET['fnm'];
+$lnm = $_GET['lnm'];
+if((!empty($fnm))  && (!empty($lnm)))
+                {             
+echo "First Name is $fnm<br>";
+                                echo "Last Name is $lnm";          
+                }
+                                else echo "2";
+?>
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________--
+4. Write a java script to accept email address from user and count no of @
+occurrences and number of DOT(.) occurrences.
+----->>
+HTML file :
+
+<html>
+<head>
+<style>
+span
+{
+                color: red;
+                font-size: 25px;
+
+}
+</style>
+
+<script type="text/javascript" >
+                function count()
+                {
+                                var ob=false;
+                                ob=new XMLHttpRequest();
+               
+                                var eid=document.getElementById("eid").value;
+               
+                                ob.open("GET","slip10_Q1.php?emailid="+eid);
+                                ob.send();          
+               
+                                ob.onreadystatechange=function()
+                                {
+                                                if(ob.readyState==4 && ob.status==200)
+                                                document.getElementById("i").innerHTML=ob.responseText; 
+                                }
+                }             
+</script>
+</head>
+
+<body>
+<center>
+<br>Email ID :<input type=text  name=eid id=eid>
+<br><input  type="button"  value=Show onclick="count()" >
+<br><br><span id="i"></span>
+</center>
+</body>
+</html>
+
+PHP file :
+
+<?php
+                $eid=$_GET['emailid'];
+                $cnt_1 = substr_count($eid,"@");
+                $cnt_2 = substr_count($eid,".");
+                echo "total count of @ is $cnt_1 and total count of .(dot) is $cnt_2";
+?>
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+5.Write a PHP script to keep track of number of times the web page has been
+access. [Use Session]
+--------->>>
+
+PHP file :
+
+<html>
+<head>
+<title> Number of times the web page has been viited.</title>
+</head>
+<body>
+<?php
+                session_start();
+                if(isset($_SESSION['count']))
+                $_SESSION['count']=$_SESSION['count']+1;
+                                else
+                                $_SESSION['count']=1;
+                echo "<h3>This page is accessed</h3>".$_SESSION['count'];
+?>
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+6.Write a PHP script to check how many times the web page access.[ Use
+cookies]
+--------->>>
+
+PHP file :
+
+<?php
+                if(isset($_COOKIE['cnt']))
+                {
+                                $x=$_COOKIE['cnt'];
+                                $x=$x+1;
+                                setcookie('cnt',$x);
+                }
+                                else
+                                {
+                                                setcookie('cnt',2);
+                                                echo "you accessed this page 1st  time";
+                                }
+                echo "you accessed this page $x times";
+
+?>
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+7.Write a java script function to display Clock in the textbox.
+
+--------->>
+HTML file :
+
+<!DOCTYPE html>
+<html>
+<body>
+<table border=1>
+<tr><td><p id="demo"></p></td></tr>
+</table>
+<script>
+document.getElementById("demo").innerHTML = Date();
+</script>
+</body>
+</html>
+
+__________________________________________________________________________________________________________________________________________________________________________
+
+Q.2 [10 Marks]
+
+1.Write a script to create XML file ‘University.xml’. The element details of ‘University.xml’
+Are as follows:
+<Univ>
+<Uname>------------</Uname>
+<CITY>-----------------</CITY>
+<Rank>----------------<</Rank>
+</Univ>
+a) Store the details of at least 3 universities.
+b) Link the ‘University.xml’ file to CSS and get well formatted output as given below.
+i) Uname :
+                Color : black;
+                Font-family: copperplate G0thic Light;
+                Font size: 16pt;
+                Font:Bold;
+ii) City and Rank
+                Color: Yellow;
+Font-family: Arial;
+                Font-size : 12pt;
+                Font: Bold;
+------>>>
+XML file : university.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="university.css"?>
+<Uni>
+                <U_info>
+                                <Uname>Pune University</Uname>
+                                <City>Pune</City>
+                                <Rank>First</Rank>
+                </U_info>
+                <U_info>
+                                <Uname>Mumbai University</Uname>
+                                <City>Mumbai</City>
+                                <Rank>Third</Rank>
+                </U_info>
+                <U_info>
+                                <Uname>Latur University</Uname>
+                                <City>Latur</City>
+                                <Rank>Fifth</Rank>
+                </U_info>
+</Uni>
+
+
+CSS file : university.css
+
+Uname
+{
+                color:black;
+                font-family: copperplate Gothic Light;
+                font-size: 16pt;
+                font: bold;
+}
+City,Rank
+{
+                color:yellow;
+                font-family:arial;
+                font-size: 12pt;
+                font: bold;
+}
+
+PHP file :
+
+<?php
+                $xml=simplexml_load_file("university.xml") or die("eror:cannot create object");
+                echo "<table border=1 align=center>";
+                echo "<tr><td>Univercity Name</td><td>City</td><td>Rank</td></tr>";
+                foreach($xml->children() as $uni)
+                {
+                                echo "<tr><td>".$uni->Uname."</td>";
+                                echo "<td>".$uni->City."</td>";
+                                echo "<td>".$uni->Rank."</td></tr>";
+                }
+                echo "<table>";
+?>
+___________________________________________________________________________________________________________________________________________________________________________________________
+2. Write a PHP Script to read ‘BOOK.xml’ file and print specific content of a file
+using DOMDocument parser. ‘Book.xml’ file should contain following
+information with at least 5 records with values. BookInfo Book NO, Book Name,
+Author Name, Price, Year. [Note: Examiners can change the Book info file to
+Student info, Teacher info]
+
+----->>>
+XML file : book.xml
+
+<?xml version='1.0' encoding ='UTF-8' ?>
+<?xml-stylesheet type="text/css"?>
+
+<bookstore>
+                <books category="technical">
+                                <book_no>1</book_no>
+                                <book_name>def</book_name>
+                                <author_name>xxx</author_name>
+                                <price>100</price>
+                                <year>1990</year>
+                </books>
+                <books category="Cooking">
+                                <book_no>2</book_no>
+                                <book_name>ccc</book_name>
+                                <author_name>aaa</author_name>
+                                <price>200</price>
+                                <year>1950</year>
+                </books>
+                <books category="YOGA">
+                                <book_no>3</book_no>
+                                <book_name>ddd</book_name>
+                                <author_name>zzz</author_name>
+                                <price>150</price>
+                                <year>2016</year>
+                </books>
+                <books category="technical">
+                                <book_no>1</book_no>
+                                <book_name>def</book_name>
+                                <author_name>xxx</author_name>
+                                <price>100</price>
+                                <year>1990</year>
+                </books>
+                <books category="technical">
+                                <book_no>1</book_no>
+                                <book_name>def</book_name>
+                                <author_name>xxx</author_name>
+                                <price>100</price>
+                                <year>1990</year>
+                </books>
+</bookstore>
+
+PHP file :
+<?php
+                $doc=new DOMDocument();
+                $doc->load("book.xml");
+                $name=$doc->getElementsByTagName("book_name");
+                $year=$doc->getElementsByTagName("year");
+
+                echo "Books Names";
+                foreach($name as $val)
+                {
+                                echo "<br>".$val->textContent;
+                }
+                echo "<br><br> Year";
+                foreach($year as $value)
+                {
+                                echo "<br>".$value->textContent;
+                }
+?>
+
+_________________________________________________________________________________________________________________________________________________________________________________________
+3. Write a script to create XML file as ‘Employee.xml’. The element of this xml
+file are as follows: <Empdetails> <Employee EMPno= Empname=>
+<Salary>--------</Salary> <Designation>-------</Designation> </Employee>
+</Empdetails>
+
+------->>>
+<?xml version="1.0" encoding="UTF-8"?>
+<Empdetails>
+                <Emp Empno="1" Empname="Mansi">
+                                <Sal>15000</Sal>
+                                <Desg>Developer</Desg>
+                </Emp>
+                <Emp Empno="2" Empname="Gautam">
+                                <Sal>35000</Sal>
+                                <Desg>HR</Desg>
+                </Emp>
+                <Emp Empno="3" Empname="Jack">
+                                <Sal>25000</Sal>
+                                <Desg>Tester</Desg>
+                </Emp>
+</Empdetails>
+
+PHP file :
+
+<?php
+                $xml=simplexml_load_file("employee.xml") or die("eror:cannot create object");
+
+                echo "<table border=1 align=center>";
+                echo "<tr><td>Employee no</td><td>Employee Name</td><td>Employee Salary</td><td>Employee Employee Designation</td></tr>";
+
+                foreach($xml->children() as $emp)
+                {
+                                $arr = $emp->attributes();
+                                echo "<tr><td>".$arr["Empno"]."</td>";
+                                echo "<td>".$arr["Empname"]."</td>";
+                                echo "<td>".$emp->Sal."</td>";
+                                echo "<td>".$emp->Desg."</td></tr>";
+                             
+                }
+
+                echo "<table>";
+?>
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________
+4. Write a PHP script to generate an XML in the following format in php. <? Xml
+version=’1.0’encoding=’’ISO-8859-1’?> <Book Store> <Books> <PHP> <Title>
+Programming in PHP </ Title> <Publication>O’RELLY<Publication> </PHP> <PHP>
+<Title> Beginners PHP</ Title> <Publication> WORX</Publication>
+</PHP></Books> </Book Store>
+-------->>>
+
+XML file :
+<? Xml version=’1.0’encoding=’’ISO-8859-1’?>
+<Book Store>
+<Books>
+<PHP>
+<Title> Programming in PHP </ Title>
+<Publication>O’RELLY<Publication>
+</PHP>
+<PHP>
+<Title> Beginners PHP</ Title>
+<Publication> WORX</Publication>
+</PHP></Books>
+</Book Store>
+HTML file :
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Store</title>
+</head>
+<body>
+<form action="slip7_Q2.php" method="get">
+<table>
+<tr><td><label> Enter 1st Book title Name : </label></td><td><input type="text" name="title_1" id="title_1"></td></tr>
+<tr><td><label> Enter 1st Book Publication Name : </label></td><td><input type="text" name="pub_1" id="pub_1"></td></tr>
+<tr><td><label> Enter 2st Book title Name : </label></td><td><input type="text" name="title_2" id="title_2"></td></tr>
+<tr><td><label> Enter 1st Book Publication Name : </label></td><td><input type="text" name="pub_2" id="pub_2"></td></tr>
+<tr><th colspan="2"><input id="ok" type="submit" value="OK" name="ok"></th></tr>
+</table>
+</form>
+</body>
+</html>
+
+PHP file :
+
+<?php
+                $title_1 = $_GET['title_1'];
+                $pub_1 = $_GET['pub_1'];
+                $title_2 = $_GET['title_2'];
+                $pub_2 = $_GET['pub_2'];
+             
+                $xml = "<?xml version='1.0' encoding ='ISO-8859-1' ?>";
+                $xml = $xml."<BookStore>";
+                $xml = $xml."<Books>";
+                                $xml = $xml."<PHP>";
+                                $xml = $xml."<Title>";
+                                $xml = $xml."$title_1";
+                                $xml = $xml."</Title>";
+
+                                $xml = $xml."<Publication>";
+                                $xml = $xml."$pub_1";
+                                $xml = $xml."</Publication>";
+                $xml = $xml."</PHP>";
+                $xml = $xml."<PHP>";
+                                $xml = $xml."<Title>";
+                                $xml = $xml."$title_2";
+                                $xml = $xml."</Title>";
+                                $xml = $xml."<Publication>";
+                                $xml = $xml."$pub_2";
+                                $xml = $xml."</Publication>";
+                $xml = $xml."</PHP>";
+                $xml = $xml."</Books>";
+                $xml = $xml."</BookStore>";
+             
+                if($fp = fopen("bookstore.xml","a+"))
+                {
+                                if($wt = fwrite($fp,$xml))
+                                {
+                                                header("location:bookstore.xml");
+                                }
+                                else "file not created...";
+                }
+                else echo "file not open....";
+             
+?>
+
+
+5. Write a PHP script to accept username and password. If in the first three
+chances, username and password entered is correct then display second form
+with ‘welcome message’ otherwise display error message. [ Use Session]
+------->>>
+HTML file :
+
+<html>
+<head>
+<script>
+                function getans()
+                {
+                                st1=document.getElementById('txtname').value;
+                                st2=document.getElementById('txtpass').value;
+                                ob=new XMLHttpRequest();
+             
+                                ob.onreadystatechange=function()
+                                {
+                                                if(ob.readyState==4 && ob.status==200)
+                                                {
+                                                                if(ob.responseText==3)
+                                                                {
+                                                                                alert("sorry you lost the chances to login");
+                                                                                location="error.html";
+                                                                }
+                                                                else if(ob.responseText=="correct")
+                                                                {
+                                                                                alert("you entered correct details");
+                                                                }
+                                                                else alert(ob.responseText);   
+                                                }                                           
+                                }           
+                                ob.open("GET","slip8_Q2.php?n="+st1+"&p="+st2);
+                                ob.send();
+                }
+</script>
+</head>
+<body>
+<input type=text id=txtname placeholder="username"></br>
+<input type=password id=txtpass placeholder="password"></br>
+<input type="button" onclick="getans()" value="Login">
+
+</body>
+</html>
+
+HTML file :  error.html
+
+<html>
+<body>
+<h1>YOu lossed the chances of login</h1>
+</body>
+</html>
+
+PHP file :
+<?php
+                session_start();
+                $nm=$_GET['n'];
+                $ps=$_GET['p'];
+                if($nm==$ps)
+                {
+                                echo "correct";
+                }
+                else if(isset($_SESSION['cnt']))
+                                                {
+                                                                $x=$_SESSION['cnt'];
+                                                                $x=$x+1;
+                                                                $_SESSION['cnt']=$x;
+                                                                echo $_SESSION['cnt'];
+                                                             
+                                                                if($_SESSION['cnt']>=3)
+                                                                $_SESSION['cnt']=1;
+                                                }
+                                                else
+                                                {
+                                                                $_SESSION['cnt']=1;
+                                                                echo "1";
+                                                }
+?>
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+6. Write a AJAX program to read contact. Dat file and print the contain of a file in
+a Tabular form when the user clicks on print button. Contact.dat file contain
+srno, name, residence number, mobile number, context/ relation. [ Enter at least
+3 record in contact.dat file] [Note: Examinar may change the contact. dat,
+dept.dat and provide proper structure of the file]
+------>>>
+
+HTML file :
+
+<html>
+<head>
+<style>
+span
+{
+                font-size: 25px;
+}
+table
+{
+                color: blueviolet; ;
+}
+</style>
+
+<script type="text/javascript" >
+                function print()
+                {
+                                var ob=false;
+                                ob=new XMLHttpRequest();
+             
+                                ob.open("GET","slip14_Q2.php?");//emailid="+eid);
+                                ob.send();         
+             
+                                ob.onreadystatechange=function()
+                                {
+                                                if(ob.readyState==4 && ob.status==200)
+                                                {
+                                                                document.getElementById("i").innerHTML=ob.responseText;
+                                                }
+                                }
+                }           
+</script>
+</head>
+
+<body>
+<center>
+<h3>Display the contents of a contact.dat file </h3>
+<br><input  type="button"  value=Print onclick="print()" >
+<span id="i"></span>
+</center>
+</body>
+</html>
+
+Dat file : contact.dat
+
+1  Isha  65768798  98765432  Daughter
+2  Megha  65235689  87654329  Mother
+
+PHP file :
+
+<?php
+                $fp = fopen('contact.dat','r');
+                echo "<table border=1>";
+                echo "<tr><th>Sr. No.</th><th>Name</th><th>Residence No.</th><th>Mob. no.</th><th>Relation</th></tr>";
+             
+while($row =  fscanf($fp,"%s %s %s %s %s"))
+                {
+                                echo "<tr>";
+                                foreach($row as $r)
+                                {
+                                                echo "<td>$r</td>";                           
+                                }                           
+                                echo "</tr>";
+                }
+                                echo "</table>";
+                fclose($fp);
+?
+_____________________________________________________________________________________________________________________________________________________________________________________________________
+7. Write a AJAX program to print Teacher information from postgreSQL table
+Teacher. Teacher (Tno, Name, Subject, Research area). [Note: Examiner can
+change PostgreSQL table ]
+--------->>>
+
+HTML file :
+
+<html>
+<script type="text/javascript">
+function display()
+{
+                ob = new XMLHttpRequest();
+                ob.open("GET","slip17_2.php");
+                ob.send();
+                ob.onreadystatechange = function()
+                {
+                                if(ob.readyState == 4 && ob.status == 200)
+                                document.getElementById("i").innerHTML = ob.responseText;
+                }
+
+}
+</script>
+
+<body>
+<h2>DISPLAY INFORMATION OF TEACHER</h2>
+<input type=submit value="DISPLAY INFORMATION" onclick=display()>
+<span id=i></span>
+</body>
+</html>
+
+PHP file :
+
+<?php
+$con_string = "host=localhost dbname=bcs_slips port=5432  user=postgres password=nrc";
+$con = pg_connect($con_string);
+
+echo "</br>";
+$q = "select * from teacher;";
+$rs = pg_query($con,$q) or die("Cannot Execute query");
+while($row = pg_fetch_row($rs))
+echo "$row[0] $row[1] $row[2]\n</br>";
+
+pg_close();
+?>
+
+____________________________________________________________________________________________________________________________________________________________________________________
+8. Write a PHP script to accept Employee details ( Eno, Ename, address) on first
+page. On second page accept earning( Basic, Da, HRA). On third page print
+Employee information( ENO,Ename, Address, BASIC, DA, HRA, TOTAL) [Hint: Use
+Session
+-------->>>
+
+HTML file :
+
+<html>
+<body>
+<form action="slip18_2_1.php" method="get">
+<center>  <h2>Enter Enployee Details :</h2>  <br>
+
+<table>
+<tr>  <td><b>Emp no :</b></td>            <td><input type=text name=eno></td>        </tr>
+<tr>  <td><b> Name :</b></td>             <td><input type=text name=enm></td>        </tr>
+<tr>  <td><b>Address :</b></td>                      <td><input type=text name=eadd></td>        </tr>
+</table>
+<br>  <input type=submit value=Show name=submit>
+</center>
+</form>
+</body>
+</html>
+
+PHP file : slip_18_2_1.php
+
+<?php
+session_start();
+$eno = $_GET['eno'];
+$enm = $_GET['enm'];
+$eadd = $_GET['eadd'];
+
+$_SESSION['eno'] = $eno;
+$_SESSION['enm'] = $enm;
+$_SESSION['eadd'] = $eadd;
+?>
+
+<html>
+<body>
+
+<form action="slip18_2_2.php" method="post">
+<center>
+<h2>Enter Earnings of Employee:</h2>
+
+<table>
+<tr><td>Basic : </td><td><input type="text" name="e1"></td><tr>
+<tr><td>DA : </td><td><input type="text" name="e2"></td></tr>
+<tr><td>HRA : </td><td><input type="text" name="e3"></td></tr>
+<tr><td></td><td><input type="submit" value=Next></td></tr>
+</table>
+</center>
+</form>
+</body>
+</html>
+
+PHP file : slip18_2_2.php
+<?php
+session_start();
+$e1 = $_POST['e1'];
+$e2 = $_POST['e2'];
+$e3= $_POST['e3'];
+
+echo "<h3>Employee Details</h3> ";
+echo "Name : ".$_SESSION['eno']."<br>";
+echo "Address : ".$_SESSION['enm']."<br>";
+echo "Class : ".$_SESSION['eadd']."<br><br>";
+
+echo "basic : ".$e1."<br>";
+echo "DA : ".$e2."<br>";
+echo "HRA : ".$e3."<br>";
+
+$total = $e1+$e2+$e3;
+echo "<h2>Total Of Earnings Is : ".$total."</h2>";
+?>
+_____________________________________________________________________________________________________________________________________________________________________________________________________________
+9. Write a AJAX program to search Student name according to the character
+typed and display list using array
+------->>>>
+
+HTML file :
+
+<html>
+<head>
+<script type="text/javascript" >
+                function m1(str)
+                {
+                                var ob=false;
+                                ob=new XMLHttpRequest();
+                                ob.open("GET","slip20_2.php?q="+str);
+                                ob.send();       
+             
+                                ob.onreadystatechange=function()
+                                {
+                                                if(ob.readyState==4 && ob.status==200)
+                                                                                                                                                                                                document.getElementById("a").innerHTML=ob.responseText;
+                                }           
+                }
+</script>
+</head>
+
+<body>
+<form>
+Enter Name Of Student :<input type=text name=search size="20" onkeyup="m1(form.search.value)">
+<input type=button value="submit" ><!--onclick="m1(form.search.value)"-->
+<!-- onclick="matches(form.search.value)">-->
+</form>
+suggestions :<span id="a"></span><br>
+</body>
+</html>
+
+PHP file :
+
+<?php
+                $a=array("RAMESH","SURESH","RAJ","SEEMA","PUJA","SIYA","AJAY","SAMEER","VIJAY","VINAY","VIRAJ");
+                $q=$_GET['q'];
+             
+                if(strlen($q)>0)
+                {           
+                                $match="";
+                                for($i=0;$i<count($a);$i++)
+                                {
+                                                if(strtolower($q)==strtolower(substr($a[$i],0,strlen($q))))
+                                                                {
+                                                                                if($match=="")
+                                                                                {
+                                                                                                $match=$a[$i];                               
+                                                                                }                           
+                                                                                else
+                                                                                {
+                                                                                                $match=$match.",".$a[$i];
+                                                                                }
+                                                                }           
+                                }
+             
+                                if($match=="")
+                                {
+                                                echo "No Suggestios";
+                                }
+                                else
+                                {
+                                                echo $match;
+                                }
+                }
+?>
+______________________________________________________________________________________________________________________________________________________________________
+10. Write a PHP script to change the preference of your web page like font style,
+font, size, font color, background color using cookie. Display selected settings on
+next page and actual implementation ( with new settings) on third page.
+
+-------->>>
+HTML file :
+
+<html>
+<body>
+<form action="slip21_2_1.php" method="get">
+<center>
+<b>Select font style :</b><input type=text name=s1> <br>
+<b>Enter font size : </b><input type=text name=s><br>
+<b>Enter font color : </b><input type=text name=c><br>
+<b>Enter background color :</b> <input type=text name=b><br>
+<input type=submit value="Next">
+</center>
+</form>
+</body>
+</html>
+
+PHP file : slip21_2_1.php
+
+<?php
+echo "style is ".$_GET['s1']."<br>color is ".$_GET['c']."<br>Background color is ".$_GET['b']."<br>size is ".$_GET['s'];
+setcookie("set1",$_GET['s1'],time()+3600);
+setcookie("set2",$_GET['c'],time()+3600);
+setcookie("set3",$_GET['b'],time()+3600);
+setcookie("set4",$_GET['s'],time()+3600);
+?>
+
+<html>
+<body>
+<form action="slip21_2_2.php">
+<input type=submit value=OK>
+</form>
+</body>
+</html>
+
+PHP file : slip21_2_2.php
+<?php
+$style = $_COOKIE['set1'];
+$color = $_COOKIE['set2'];
+$size = $_COOKIE['set4'];
+$b_color = $_COOKIE['set3'];
+$msg = "NR Classes";
+echo "<body bgcolor=$b_color>";
+echo "<font color=$color size=$size>$msg";
+echo "</font></body>";
+?>
+___
+
+12. 1) Write a javascript function to validate username and password for a
+membership form. 2) To insert text before and after an image using jQuery.
+[Hint : Use before( ) and after( )]
+_______________________________________________________________________________________________________________________________________________________________________
+13. Create a CSS file to apply the following styling for an HTML document.
+Background color: blue,
+H1
+{
+Color : red,
+Font-family : Verdana,
+Font-size : 8
+}
+P
+{
+Color : green,
+Font-family : Monospace,
+Font-size :10
+}
+2. Add a Javascript file in codeigniter. The javascript code should check whether
+a number is positive or negative.

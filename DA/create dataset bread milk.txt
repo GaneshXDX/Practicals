@@ -1,0 +1,37 @@
+pip install mlxtend #
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules #
+transactions = [
+     ['bread','milk'], ['bread','diaper','beer','eggs'], ['milk','diaper','beer','coke'], ['bread','milk','diaper','beer'], ['bread','milk','diaper','coke']
+] #
+from mlxtend.preprocessing import TransactionEncoder
+te=TransactionEncoder()
+te_array=te.fit(transactions).transform(transactions)
+df= pd.DataFrame(te_array,columns=te.columns_)
+df #
+freq_items = apriori(df, min_support=0.5, use_colnames=True)
+print(freq_items) #
+rules=association_rules(freq_items,metric='support',min_threshold=0.05)
+rules=rules.sort_values(['support','confidence'], ascending=[False,False])
+print(rules) #
+
+#dataset into csv file
+data_frame = pd.DataFrame(transactions) 
+data_frame.to_csv('DEMO.csv') 
+
+#To perform the above on a standard dataset, apply the following steps:
+1. Download the csv file
+from google.colab import files
+data = files.upload()
+2. Read the data from the csv file
+import io
+import pandas as pd
+df = pd.read_csv(io.BytesIO(data['Market_Basket_Optimisation.csv']))
+3. View the contents, info, columns and other details
+4. Now, Convert Pandas DataFrame into a list of lists for encoding
+transactions = []
+for i in range(0, len(df)):
+ transactions.append([str(df.values[i,j]) for j in range(0, len(df.c
+olumns))])
+5. Apply TransformEncoder to the transactions list
+6. Apply the apriori algorithm

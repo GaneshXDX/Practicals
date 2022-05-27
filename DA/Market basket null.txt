@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from apyori import apriori #
+pip install apyori #
+data=pd.read_csv('Market_Basket_Optimisation.csv', encoding="ISO-8859-1",header=None) #
+data.head() #
+data.info() #
+data.shape #
+data.isnull().sum() #
+data=data.dropna() #
+data.head() #

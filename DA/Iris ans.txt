@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd #
+df = pd.read_csv("Iris.csv") #
+print('Iris-setosa')
+setosa = df['species'] == 'Iris-setosa'
+print(df[setosa].describe())
+print('\nIris-versicolor')
+setosa = df['species'] == 'Iris-versicolor'
+print(df[setosa].describe())
+print('\nIris-virginica')
+setosa = df['species'] == 'Iris-virginica'
+print(df[setosa].describe()) #
+df #
+df.head(5) #
+df.corr() #
+df.info() #
+df['species'].value_counts() #
+df.isnull().sum() #
+df['sepal_length'].hist()
+df['sepal_width'].hist() #
+df['petal_length'].hist()
+df['petal_width'].hist() #
+df.corr() #
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+df['Species'] = le.fit_transform(df['species'])
+df.head(100) #
+from sklearn.model_selection import train_test_split #
+X = df.drop(columns = ['species'])
+Y = df['species']
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.25) #
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train,Y_train) #
+print("Accuracy: ", model.score(X_test, Y_test) * 100) #
